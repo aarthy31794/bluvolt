@@ -1,0 +1,24 @@
+.thing {
+    padding: 14px;
+    font-size: large;
+    font-weight: 500;
+}
+
+md-toast.md-success-toast-theme .md-toast-content {
+    background-color: green;
+}
+
+md-toast.md-error-toast-theme .md-toast-content {
+    background-color: red;
+}
+
+md-toast {
+    top: 10px;
+    right: 0px;
+}
+
+.connect-btn {
+    top: 20px;
+    background-color: rgb(21,101,192) !important;
+    color: #ffffff !important;
+}
