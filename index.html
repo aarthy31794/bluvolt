@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Origin Trial Token -->
-    <meta http-equiv="origin-trial" content="AtgOYVRO5xlsm/3qCzZ701Hx8qTUrCUbFVML9Z8E9vELP5w9K9E73YWGBQc4Ivy0hGd+++sh7JUtKx+3EuV3ngkAAABeeyJvcmlnaW4iOiAiaHR0cHM6Ly9ibHVlYXBwaW8uZ2l0aHViLmlvOjQ0MyIsICJmZWF0dXJlIjogIldlYkJsdWV0b290aCIsICJleHBpcnkiOiAxNDc2ODE1NjAyfQ==" />
-
+    <meta http-equiv="origin-trial"
+          content="AtgOYVRO5xlsm/3qCzZ701Hx8qTUrCUbFVML9Z8E9vELP5w9K9E73YWGBQc4Ivy0hGd+++sh7JUtKx+3EuV3ngkAAABeeyJvcmlnaW4iOiAiaHR0cHM6Ly9ibHVlYXBwaW8uZ2l0aHViLmlvOjQ0MyIsICJmZWF0dXJlIjogIldlYkJsdWV0b290aCIsICJleHBpcnkiOiAxNDc2ODE1NjAyfQ=="/>
     <title>BluVolt</title>
     <link rel="stylesheet"
           href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc4/angular-material.min.css">
@@ -19,22 +18,35 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc4/angular-material.min.js"></script>
 
-<script src="https://blueappio.github.io/blueapp.io/blueapp.io.min.js"></script>
+<script src="cordova/cordova-init.js"></script>
+<script src="https://blueappio.github.io/blueapp.io/1.1.0/blueapp.io.min.js"></script>
 <script src="bluvolt.js"></script>
 <script src="app.js"></script>
 
 <body ng-app="bluvolt" class="thing">
 <div ng-controller="mainController as main" md-theme-watch="true">
+    <div id='scanDialog'></div>
+    <div class="row heading" flex="100" layout="row">
+        <div class="logo" style="margin-top: 6px;"></div>
+        <div layout="column" flex="20" layout-align="center end"
+             style="position: absolute; right: 0px; width: 62px; margin-top: -3px;" ng-hide="bluvolt.connected">
+            <md-button style="text-transform: capitalize !important; color: white;" ng-click="onConnect()">
+                Connect
+            </md-button>
+        </div>
+        <div layout="column" flex="20" layout-align="center end"
+             style="position: absolute; right: 0px; width: 62px; margin-top: -3px;"
+             ng-show="bluvolt.connected && isApp">
+            <md-button style="text-transform: capitalize !important; color: white;" ng-click="onDisconnect()">
+                Disconnect
+            </md-button>
+        </div>
+    </div>
     <div class="ng-scope layout-align-center-center layout-column" layout="column" layout-align="center center"
          ng-hide="!bluvolt.connected">
         <div class="ng-binding" style="font-size: 72px;color: #03A9F4!important;padding-top: 9px;padding-left: 25px;">
             {{voltageValue}} <sub style="font-size: 30px;"> volts </sub>
         </div>
-    </div>
-    <div layout="row" layout-align="start start" ng-hide="bluvolt.connected">
-        <md-button class="md-raised connect-btn" ng-click="onConnect()">
-            Connect
-        </md-button>
     </div>
 </div>
 </body>

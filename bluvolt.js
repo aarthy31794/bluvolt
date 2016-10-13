@@ -6,22 +6,25 @@ var BluVolt = function () {
 
     var VOLTAGE_UUID = 0x6225;
 
-    function BluVolt(bluetooth) {
+    function BluVolt() {
         this.connected = false;
         this.relayCharacteristic = undefined;
         this.relayStatus = undefined;
-        this.bluetooth = bluetooth;
+        this.bluetoothDevice = undefined;
     }
 
     BluVolt.prototype.connect = function connect() {
 
         var self = this;
 
-        var options = {filters: [{services: [0x6224]}],
-                        optionalServices: [0x6224, "0abb1530-685e-11e5-9d70-feff819cdc9f"]};
+        var options = {
+            filters: [{services: [0x6224]}],
+            optionalServices: [0x6224, "0abb1530-685e-11e5-9d70-feff819cdc9f"]
+        };
 
-        return this.bluetooth.requestDevice(options)
+        return navigator.bluetooth.requestDevice(options)
             .then(function (device) {
+                self.bluetoothDevice = device;
                 return device.gatt.connect();
             })
             .then(function (server) {
@@ -45,6 +48,23 @@ var BluVolt = function () {
             .then(function () {
                 self.connected = true;
             });
+    }
+
+    BluVolt.prototype.disconnect = function disconnect() {
+        var self = this;
+        if (!self.bluetoothDevice) {
+            return Promise.reject();
+        }
+        return self.bluetoothDevice.disconnect()
+            .then(function () {
+                self.connected = false;
+                self.relayCharacteristic = undefined;
+                self.relayStatus = undefined;
+                self.bluetoothDevice = undefined;
+
+                return Promise.resolve();
+            });
+
     }
 
     return BluVolt;
