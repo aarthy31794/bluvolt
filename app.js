@@ -97,6 +97,20 @@ app.controller('mainController', function ($scope, $mdToast, $mdDialog, bluVoltS
         $mdDialog.cancel();
     };
 
+    function connectCall(){
+        $scope.terminal.connect()
+            .then(function () {
+                dismissLoadingIndicator();
+                goodToast('Connected...');
+                $scope.$apply();
+            })
+            .catch(function (error) {
+                dismissLoadingIndicator();
+                console.error('Argh!', error, error.stack ? error.stack : '');
+                badToast('Unable to connect.');
+            });
+    }
+
     $scope.bluvolt.updateUI = function (value, notifyChar) {
         var tmpArray = new Uint8Array(value.buffer);
         var tempData = '';
@@ -111,16 +125,14 @@ app.controller('mainController', function ($scope, $mdToast, $mdDialog, bluVoltS
 
     $scope.onConnect = function () {
         showLoadingIndicator('', 'Connecting ....');
-        $scope.bluvolt.connect()
-            .then(function () {
-                dismissLoadingIndicator();
-                goodToast('Connected...');
-            })
-            .catch(function (error) {
-                dismissLoadingIndicator();
-                console.error('Argh!', error, error.stack ? error.stack : '');
-                badToast('Unable to connect.');
-            });
+        if($scope.isApp){
+            setTimeout(function () {
+                connectCall();
+            }, 1500);
+        }
+        else{
+            connectCall();
+        }
     }
 
     $scope.onDisconnect = function () {
