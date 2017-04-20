@@ -100,14 +100,34 @@ app.controller('mainController', function ($scope, $mdToast, $mdDialog, bluVoltS
         $mdDialog.cancel();
     };
 
-    $scope.bluvolt.updateUI = function (value, notifyChar) {
-        var tmpArray = new Uint8Array(value.buffer);
-        var tempData = '';
-        for (var i = 0; i < tmpArray.length; i++) {
-            tempData = tempData + tmpArray[i].toString(16);
+    function hexAsBytes(hexdata) {
+        var bytes = [];
+        for (var i = 0; i < hexdata.length - 1; i = i + 2) {
+            bytes.push(parseInt(hexdata[i] + hexdata[i + 1], 16));
         }
-        tempData = '0x' + tempData;
-        $scope.voltageValue = (tempData & 0x7fffff | 0x800000) * 1.0 / Math.pow(2, 23) * Math.pow(2, ((tempData >> 23 & 0xff) - 127));
+        return bytes;
+    }
+
+    function bytesAsHex(byteArray) {
+        var hexData = '';
+        for (var i = 0; i < byteArray.length; i++) {
+            hexData = hexData + byteArray[i].toString(16);
+        }
+        return hexData;
+    }
+
+    $scope.bluvolt.updateUI = function(value, notifyChar) {
+        //          Previous logic to convert hexdata to float
+        // var byteArray = new Uint8Array(value.buffer);        
+        // var hexData = bytesAsHex(byteArray);
+        // hexData = '0x' + hexData;
+        // $scope.voltageValue = (hexData & 0x7fffff | 0x800000) * 1.0 / Math.pow(2, 23) * Math.pow(2, ((hexData >> 23 & 0xff) - 127));
+
+        // var bytes = hexAsBytes(hexData);
+        // var byteData = new Uint8Array(bytes);
+
+        var view = new DataView(value.buffer);
+        $scope.voltageValue = view.getFloat32(0, false);
         $scope.voltageValue = $scope.voltageValue.toFixed(3);
         $scope.$apply();
     };
