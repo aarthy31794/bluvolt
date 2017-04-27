@@ -117,9 +117,15 @@ app.controller('mainController', function ($scope, $mdToast, $mdDialog, bluVoltS
     }
 
     $scope.bluvolt.updateUI = function(value, notifyChar) {
-        //          Previous logic to convert hexdata to float
-        // var byteArray = new Uint8Array(value.buffer);        
-        // var hexData = bytesAsHex(byteArray);
+        // view.getFloat32 is not returned any value when we pass 0 input. So added this hack when we get 0.
+        var byteArray = new Uint8Array(value.buffer);        
+        var hexData = bytesAsHex(byteArray);
+        if (Number(hexData) == 0) {
+            $scope.voltageValue = 0;
+            $scope.$apply();
+            return;
+        }
+
         // hexData = '0x' + hexData;
         // $scope.voltageValue = (hexData & 0x7fffff | 0x800000) * 1.0 / Math.pow(2, 23) * Math.pow(2, ((hexData >> 23 & 0xff) - 127));
 
