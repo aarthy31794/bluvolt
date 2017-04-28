@@ -2,9 +2,9 @@
 
 var BluVolt = function () {
 
-    var SERVICE_UUID = 0x6224;
+    var SERVICE_UUID = 'fd660001-29c4-11e7-8c79-794c8b1831f9';
 
-    var VOLTAGE_UUID = 0x6225;
+    var VOLTAGE_UUID = 'fd660002-29c4-11e7-8c79-794c8b1831f9';
 
     function BluVolt() {
         this.connected = false;
@@ -17,10 +17,12 @@ var BluVolt = function () {
 
         var self = this;
 
-        var options = {
-            filters: [{services: [0x6224]}],
-            optionalServices: [0x6224, "0abb1530-685e-11e5-9d70-feff819cdc9f"]
-        };
+        var options = {filters: [{services: [SERVICE_UUID]}]};
+
+        // var options = {
+        //     filters: [{services: [0x6224]}],
+        //     optionalServices: [0x6224, "0abb1530-685e-11e5-9d70-feff819cdc9f"]
+        // };
 
         return navigator.bluetooth.requestDevice(options)
             .then(function (device) {
