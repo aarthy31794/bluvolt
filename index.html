@@ -1,54 +1,16 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui" name="viewport"><meta content="AkK15PCT/JQzZOG2MuAyNPO4fR1U0rtIhLAogFay1cDTMLL2ulyBPKWiTiGdPa5FIzAHDC2yC+7mF/YBe+tI0g8AAABaeyJvcmlnaW4iOiAiaHR0cHM6Ly92ZW5zaS5naXRodWIuaW86NDQzIiwgImZlYXR1cmUiOiAiV2ViQmx1ZXRvb3RoIiwgImV4cGlyeSI6IDE0NzMyNjQ4NDV9" http-equiv="origin-trial"><title>BluVolt</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><script src="cordova.js"></script><link href="styles/vendor-6bf52fabed.css" rel="stylesheet"><link href="styles/app-7b2d30b97a.css" rel="stylesheet"><script src="scripts/vendor-d4c228189f.js"></script><script src="scripts/app-e26fd2f65e.js"></script></head><body class="thing"><div md-theme-watch="true" ng-controller="mainController as main"><div id="scanDialog"></div><div class="heading row" layout="row" flex="100"><div class="dialog-demo-content" style="position: absolute; left: 0px; width: 62px" ng-show="bluvolt.connected"><md-button ng-click="showSettingsDialog($event);" aria-label="Settings" class="md-icon-button md-primary"><md-icon md-svg-icon="app/images/settings.svg" style="color: #3e3737"></md-icon></md-button></div><div class="logo" style="margin-top: 6px"></div><div style="position: absolute; right: 0px; width: 62px; margin-top: -3px" flex="20" layout="column" layout-align="center end" ng-hide="bluvolt.connected"><md-button ng-click="onConnect()" style="text-transform: capitalize !important; color: white">Connect</md-button></div><div style="position: absolute; right: 0px; width: 62px; margin-top: -3px" flex="20" layout="column" layout-align="center end" ng-show="bluvolt.connected && isApp"><md-button ng-click="onDisconnect()" style="text-transform: capitalize !important; color: white">Disconnect</md-button></div></div><div class="layout-align-center-center layout-column ng-scope" layout="column" layout-align="center center" ng-hide="!bluvolt.connected"><div class="ng-binding" style="font-size: 65px;color: #03A9F4!important;padding-top: 9px;padding-left: 25px">{{voltageValue}} <sub style="font-size: 30px">{{voltageUnits}}</sub></div></div></div></body><script type="text/javascript">angular.bootstrap(document, ['bluvolt']);
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Origin Trial Token -->
-    <meta http-equiv="origin-trial"
-          content="AtgOYVRO5xlsm/3qCzZ701Hx8qTUrCUbFVML9Z8E9vELP5w9K9E73YWGBQc4Ivy0hGd+++sh7JUtKx+3EuV3ngkAAABeeyJvcmlnaW4iOiAiaHR0cHM6Ly9ibHVlYXBwaW8uZ2l0aHViLmlvOjQ0MyIsICJmZWF0dXJlIjogIldlYkJsdWV0b290aCIsICJleHBpcnkiOiAxNDc2ODE1NjAyfQ=="/>
-    <title>BluVolt</title>
-    <link rel="stylesheet"
-          href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc4/angular-material.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc4/angular-material.min.js"></script>
-
-<script src="https://blueappio.github.io/blueapp.io/blueapp.io.min.js"></script>
-<script src="cordova/cordova-init.js"></script>
-<script src="bluvolt.js"></script>
-<script src="app.js"></script>
-
-<body ng-app="bluvolt" class="thing">
-<div ng-controller="mainController as main" md-theme-watch="true" ng-cloak>
-    <div id='scanDialog'></div>
-    <div class="row heading" flex="100" layout="row">
-        <div class="logo" style="margin-top: 6px;"></div>
-        <div layout="column" flex="20" layout-align="center end"
-             style="position: absolute; right: 0px; width: 62px; margin-top: -3px;" ng-hide="bluvolt.connected">
-            <md-button style="text-transform: capitalize !important; color: white;" ng-click="onConnect()">
-                Connect
-            </md-button>
-        </div>
-        <div layout="column" flex="20" layout-align="center end"
-             style="position: absolute; right: 0px; width: 62px; margin-top: -3px;"
-             ng-show="bluvolt.connected && isApp">
-            <md-button style="text-transform: capitalize !important; color: white;" ng-click="onDisconnect()">
-                Disconnect
-            </md-button>
-        </div>
-    </div>
-    <div class="ng-scope layout-align-center-center layout-column" layout="column" layout-align="center center"
-         ng-hide="!bluvolt.connected">
-        <div class="ng-binding" style="font-size: 72px;color: #03A9F4!important;padding-top: 9px;padding-left: 25px;">
-            {{voltageValue}} <sub style="font-size: 30px;"> volts </sub>
-        </div>
-    </div>
-</div>
-</body>
-
-</html>
+function onDeviceReady() {
+    if (navigator.splashscreen) navigator.splashscreen.hide();
+    document.addEventListener("backbutton", function(e) {
+        e.preventDefault();
+        if (confirm("Are you sure you want to exit from the app?")) {
+            navigator.app.exitApp()
+        }
+    }, false);
+}
+if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/)) {
+    document.addEventListener("deviceready", onDeviceReady, false);
+} else {
+    onDeviceReady();
+}</script></html>
